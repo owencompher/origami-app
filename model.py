@@ -10,20 +10,16 @@ bp = Blueprint('model', __name__)
 
 @bp.route('/')
 def index():
-    #if request.args.get('tags'):
-    #    tags = request.args.get('tags').split(' ')
-    #    models = []
-    #    for tagn in tags:
-    #        for tag in MoodelTags.select().join(Tag).where(Tag.name==tagn):
-    #            models.append(tag.moodel)
-
-    if request.args.get('tag'): 
-        models = [tag.moodel for tag in MoodelTags.select().join(Tag).where(Tag.name==request.args.get('tag'))]
-    else: models = Moodel.select()
+    if request.args.get('tag'):
+        tags = [request.args.get('tag')]
+        models = [tag.moodel for tag in MoodelTags.select().join(Tag).join(Moodel).where(Tag.name==tags[0])]
+    else:
+        tags = [] 
+        models = Moodel.select()
 
     for model in models: model.gatherTags()
 
-    return render_template('model/index.html', models=models)
+    return render_template('model/index.html', models=models, tags=tags)
 
 
 @bp.route('/model/<int:model_id>')

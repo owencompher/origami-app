@@ -4,8 +4,13 @@
 
 {% block sidebar %}
     <div class="ttext">
-        <br>search and filtering settings here
-        {{ test }}
+        <br>
+        {% if tags %}
+            show models with tags: 
+            {% for tag in tags %}{{tag}} {% endfor %}
+        {% else %}
+            showing all models
+        {% endif %}
     </div>
 {% endblock %}
 
