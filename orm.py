@@ -39,9 +39,3 @@ class MoodelTags(db.Model):
     tag = ForeignKeyField(Tag, backref='moodels')
     class Meta:
         indexes = ((('moodel', 'tag'), True),)
-
-
-class MoodelView(ModelView):
-    column_hide_backrefs = False
-    inline_models = [MoodelTags]
-    column_list = ('id', 'name', 'designer', 'user', 'description')

@@ -1,14 +1,7 @@
 from app import app, db
-from flask_admin import Admin
-from flask_admin.contrib.peewee import ModelView
-from flask_login import LoginManager
 from orm import *
 
-admin = Admin(app, name="admin")
-admin.add_view(ModelView(User))
-admin.add_view(MoodelView(Moodel))
-admin.add_view(ModelView(Tag))
-admin.add_view(ModelView(MoodelTags))
+import admin
 
 import auth
 app.register_blueprint(auth.bp)
