@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ model.name }}{% endblock %}
+
+{% block sidebar %}
+    <br>
+    <div class="ttext">
+        <b>{{ model.name }}</b><br> 
+        by {{ model.designer }}
+    </div>
+    <div class="hover-con">
+        <img class="hover-hide" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/thumb.png"/>
+        <img class="hover-show" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/cp.png"/>
+    </div>
+    <div class="btext">
+        <a href="">{{ model.user }}</a><br>
+        {% for tag in model.tags %}
+            <a class="tag" href="">#{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="btext scroll">
+        {{ model.description }}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <img class="steps" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/diagrams.png">
+{% endblock %}

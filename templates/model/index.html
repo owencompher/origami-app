@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block sidebar %}
+    <div class="ttext">
+        <br>search and filtering settings here
+        {{ test }}
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if models %}
+        {% for model in models %}
+            <article class="moodel-con">
+                <div class="moodel hover-con">
+                    <a href="{{ url_for('model.model', model_id=model.id) }}">
+                        <div class="ttext">
+                            <b>{{ model.name }}</b><br>
+                            by {{ model.designer }}
+                        </div>
+                        <img class="hover-hide" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/thumb.png"/>
+                        <img class="hover-show" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/cp.png"/>
+                    </a>
+                    <div class="btext"><a href="">
+                        {{ model.user.username }}</a><br>
+                        {% for tag in model.tags %}
+                            <a class="tag" href="">#{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+        <article class="moodel-con"></article>
+        <article class="moodel-con"></article>
+    {% else %}
+        <p>No models :(</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+    <aside>
+        <div class="ttext title">
+            <a href="/"><h2>origami app</h2></a>
+            {% if current_user.is_authenticated %}
+                as {{ current_user.username }} | <a href="{{ url_for('auth.logout') }}">log out</a>
+            {% else %}
+                <a href="{{ url_for('auth.register') }}">register</a> | <a href="{{ url_for('auth.login') }}">log in</a>
+            {% endif %}
+        </div>
+        {% block sidebar %}{% endblock %}
+    </aside>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
