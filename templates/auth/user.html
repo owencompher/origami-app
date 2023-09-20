@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+  user {{ user.id }} is '{{ user.username }}'<br>
+  joined on {{ user.joined }}<br><br>
+  {% if models %}
+      models posted by {{ user.username }}:
+      {% include 'model/modelList.html' %}
+  {% else %}
+      {{ user.username }} has posted no models
+  {% endif %}
+{% endblock %}

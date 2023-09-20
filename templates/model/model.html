@@ -13,9 +13,9 @@
         <img class="hover-show" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/cp.png"/>
     </div>
     <div class="btext">
-        <a href="">{{ model.user }}</a><br>
+        <a href="{{ url_for('auth.user', username=model.user.username) }}">{{ model.user.username }}</a><br>
         {% for tag in model.tags %}
-            <a class="tag" href="">#{{ tag.name }}</a>
+            <a class="tag" href="{{ url_for('index', tag=tag.name) }}">#{{ tag.name }}</a>
         {% endfor %}
     </div>
     <div class="btext scroll">

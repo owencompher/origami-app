@@ -3,8 +3,9 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_peewee.utils import get_object_or_404
 from flask_login import LoginManager, login_user, logout_user, current_user
-from orm import User
+from orm import *
 from app import app
 
 lm = LoginManager()
@@ -67,3 +68,9 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
+
+@bp.route('/user/<string:username>')
+def user(username):
+    user = get_object_or_404(User.select().where(User.username==username))
+    models = [moodel.gatherTags() for moodel in Moodel.select().join(User).where(Moodel.user.username==username)]
+    return render_template('auth/user.html', user=user, models=models)

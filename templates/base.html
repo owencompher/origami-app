@@ -10,9 +10,11 @@
         <div class="ttext title">
             <a href="/"><h2>origami app</h2></a>
             {% if current_user.is_authenticated %}
-                as {{ current_user.username }} | <a href="{{ url_for('auth.logout') }}">log out</a>
+                as <a href="{{ url_for('auth.user', username=current_user.username) }}">{{ current_user.username }}</a> 
+                | <a href="{{ url_for('auth.logout') }}">log out</a>
             {% else %}
-                <a href="{{ url_for('auth.register') }}">register</a> | <a href="{{ url_for('auth.login') }}">log in</a>
+                <a href="{{ url_for('auth.register') }}">register</a> 
+                | <a href="{{ url_for('auth.login') }}">log in</a>
             {% endif %}
         </div>
         {% block sidebar %}{% endblock %}
