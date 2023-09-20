@@ -24,6 +24,7 @@ class Moodel(db.Model):
 
     def gatherTags(self):
         self.tags = [tag.tag for tag in self.tags] #Tag.select().join(MoodelTags).join(Moodel).where(Moodel.id==self.id)
+        return self
 
     def __str__(self): return self.name
 
