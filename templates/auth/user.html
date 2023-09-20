@@ -4,7 +4,7 @@
 
 {% block content %}
   user {{ user.id }} is '{{ user.username }}'<br>
-  joined on {{ user.joined }}<br><br>
+  joined {{ user.joined|dtFormat }}<br><br>
   {% if models %}
       models posted by {{ user.username }}:
       {% include 'model/modelList.html' %}
