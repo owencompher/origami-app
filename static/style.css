@@ -25,6 +25,8 @@ main {
     width: calc(100% - 260px);
     margin-left: 260px;
     padding: 50px 0 50px 0;
+}
+.moodel-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

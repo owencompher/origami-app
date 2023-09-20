@@ -1,0 +1,24 @@
+<div class="moodel-list">
+    {% for model in models %}
+        <article class="moodel-con">
+            <div class="moodel hover-con">
+                <a href="{{ url_for('model.model', model_id=model.id) }}">
+                    <div class="ttext">
+                        <b>{{ model.name }}</b><br>
+                        by {{ model.designer }}
+                    </div>
+                    <img class="hover-hide" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/thumb.png"/>
+                    <img class="hover-show" src="{{ url_for('static', filename='media/model/') }}{{ model.id }}/cp.png"/>
+                </a>
+                <div class="btext">
+                    <a href="{{ url_for('auth.user', username=model.user.username) }}">{{ model.user.username }}</a>, <time datetime="{{ model.posted }}">{{ model.posted|dtFormat }}</time><br>
+                    {% for tag in model.tags %}
+                        <a class="tag" href="{{ url_for('index', tag=tag.name) }}">#{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+    <article class="moodel-con"></article>
+    <article class="moodel-con"></article>
+</div>
