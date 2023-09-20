@@ -12,7 +12,7 @@ bp = Blueprint('model', __name__)
 def index():
     if request.args.get('tag'):
         tags = [request.args.get('tag')]
-        models = [tag.moodel for tag in MoodelTags.select().join(Tag).join(Moodel).where(Tag.name==tags[0])]
+        models = [tag.moodel for tag in MoodelTags.select().join(Tag).where(Tag.name==tags[0])]
     else:
         tags = [] 
         models = Moodel.select()
