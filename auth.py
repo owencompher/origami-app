@@ -10,6 +10,7 @@ from app import app
 
 lm = LoginManager()
 lm.init_app(app)
+lm.login_view = 'auth.login'
 
 @lm.user_loader
 def load_user(user_id): return User.get(user_id)
@@ -31,7 +32,7 @@ def login():
 
         if error is None:
             login_user(user)
-            return redirect(url_for('index'))
+            return redirect(request.args.get('next') or url_for('index'))
 
         flash(error)
 
