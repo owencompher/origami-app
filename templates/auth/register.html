@@ -3,13 +3,16 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">username</label>
-    <input name="username" id="username" required><br>
-    <label for="email">email</label>
-    <input type="text" name="email" id="email"><br>
-    <label for="password">password</label>
-    <input type="password" name="password" id="password" required><br>
-    <input type="submit" value="Register">
-  </form>
+    <form method="post">
+        <label for="username">username:
+            <input name="username" id="username" type="text" required>
+        </label><br>
+        <label for="email">email:
+            <input name="email" id="email" type="text">
+        </label><br>
+        <label for="password">password:
+            <input name="password" id="password" type="password" required>
+        </label><br>
+        <input type="submit" value="register">
+    </form>
 {% endblock %}

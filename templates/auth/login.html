@@ -3,11 +3,13 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required><br>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required><br>
-    <input type="submit" value="Log In">
-  </form>
+    <form method="post">
+        <label for="username">username:
+            <input name="username" id="username" type="text" required>
+        </label><br>
+        <label for="password">password:
+            <input name="password" id="password" type="password" required>
+        </label><br>
+        <input type="submit" value="log in">
+    </form>
 {% endblock %}

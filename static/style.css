@@ -74,6 +74,22 @@ aside .scroll {
 .ttext { padding: 6px 8px 5px 8px; transition: padding 0.05s; }
 .btext { padding: 2px 8px 7px 8px; transition: padding 0.05s; }
 
+form {
+    width: 500px;
+    margin-left: 50px;
+}
+form label { display: block; }
+form input[type=text], input[type=password], textarea {
+    width: 300px; 
+    float: right;
+    border: solid 2px;
+}
+form input[type=file] { float: right; }
+form ::file-selector-button, input[type=submit] { 
+    width: 100px;
+    border: solid 2px; 
+}
+
 a {
     text-decoration: none;
     color: var(--fg);
