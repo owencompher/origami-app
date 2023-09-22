@@ -10,16 +10,34 @@ bp = Blueprint('model', __name__)
 
 @bp.route('/')
 def index():
-    if request.args.get('tag'):
-        tags = [request.args.get('tag')]
-        models = [tag.moodel for tag in MoodelTags.select().join(Tag).where(Tag.name==tags[0])]
-    else:
-        tags = [] 
-        models = Moodel.select()
+    tags = []
+    name = None
+    if request.args.get('tag'): tags = request.args.get('tag').split(' ')
+    if request.args.get('tags'): tags = request.args.get('tags').split(' ')
 
-    for model in models: model.gatherTags()
+    if request.args.get('name'):
+        name = request.args.get('name')
 
-    return render_template('model/index.html', models=models, tags=tags)
+    filterText = []
+    
+    if tags: 
+        models = (Moodel.select()
+                        .join(MoodelTags)
+                        .join(Tag)
+                        .where(Tag.name<<tags)
+                        .group_by(Moodel)
+                        .having(fn.COUNT(Tag.name) == len(tags)))
+        filterText.append(f"with tag{'s' if len(tags)>1 else ''}: " + ', '.join(tags))
+
+    else: models = Moodel.select()
+
+    if name: 
+        models = models.select().where(Moodel.name**f'%{name}%')
+        filterText.append(f"with name containing \"{name}\"")
+
+    models = [model.gatherTags() for model in models]
+
+    return render_template('model/index.html', models=models, filterText=filterText)
 
 
 @bp.route('/model/<int:model_id>')

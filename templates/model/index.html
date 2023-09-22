@@ -5,12 +5,8 @@
 {% block sidebar %}
     <div class="ttext">
         <br>
-        {% if tags %}
-            show models with tags: 
-            {% for tag in tags %}{{tag}} {% endfor %}
-        {% else %}
-            showing all models
-        {% endif %}
+        showing all models:<br>
+        {% for line in filterText %}{{ line }}<br>{% endfor %}
     </div>
 {% endblock %}
 
