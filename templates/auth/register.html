@@ -4,6 +4,7 @@
 
 {% block content %}
     <form method="post">
+        {% if error %}<em>{{ error }}</em>{% endif %}<br><br>
         <label for="username">username:
             <input name="username" id="username" type="text" required>
         </label><br>

@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}user{% endblock %}
+
+{% block sidebar %}
+    <br>
+    <div class="ttext">
+        user <b>{{ user.username }}</b><br> 
+        joined {{ user.joined|dtFormat }} ({{ user.joined.strftime('%m/%d/%y') }})<br>
+        <br>
+        showing all models posted by {{ user.username }}
+    </div>
+{% endblock %}
 
 {% block content %}
-  user {{ user.id }} is '{{ user.username }}'<br>
-  joined {{ user.joined|dtFormat }}<br><br>
   {% if models %}
-      models posted by {{ user.username }}:
       {% include 'model/modelList.html' %}
   {% else %}
       {{ user.username }} has posted no models

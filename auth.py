@@ -15,10 +15,10 @@ lm.login_view = 'auth.login'
 @lm.user_loader
 def load_user(user_id): return User.get(user_id)
 
-bp = Blueprint('auth', __name__, url_prefix='/account')
+bp = Blueprint('auth', __name__)
 
 @bp.route('/login', methods=('GET', 'POST'))
-def login():
+def login(error=None):
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -26,26 +26,28 @@ def login():
         user = User.get(User.username==username)
 
         if user is None:
-            error = 'Incorrect username.'
+            error = 'incorrect username'
         elif not check_password_hash(user.password, password):
-            error = 'Incorrect password.'
+            error = 'incorrect password'
 
         if error is None:
             login_user(user)
+            flash('logged in')
             return redirect(request.args.get('next') or url_for('index'))
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', error=error)
 
 @bp.route('/logout')
 def logout():
-	logout_user()
-	return redirect(url_for('index'))
+    logout_user()
+    flash('logged out')
+    return redirect(url_for('index'))
 
 
 @bp.route('/register', methods=('GET', 'POST'))
-def register():
+def register(error=None):
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
@@ -53,22 +55,23 @@ def register():
         error = None
 
         if not username:
-            error = 'Username is required.'
+            error = 'username is required'
         elif not password:
-            error = 'Password is required.'
+            error = 'password is required'
 
         if error is None:
             try:
                 user = User(username=username, password=generate_password_hash(password), email=email, admin=False)
                 user.save()
             except IntegrityError:
-                error = f"User {username} is already registered."
+                error = f"user {username} is already registered"
             else:
+                flash(f"registered user {username}")
                 return redirect(url_for("auth.login"))
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/register.html', error=error)
 
 @bp.route('/user/<string:username>')
 def user(username):
