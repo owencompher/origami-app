@@ -19,7 +19,7 @@
         {% endfor %}
     </div>
     <div class="btext scroll">
-        {{ model.description }}
+        {{ model.description|md|safe }}
     </div>
 {% endblock %}
 

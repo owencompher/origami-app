@@ -1,4 +1,6 @@
 from datetime import datetime
+from markdown import markdown
+from markupsafe import escape
 from app import app, db
 from orm import *
 
@@ -24,6 +26,9 @@ def dtFormat(datetime):
     elif delta.total_seconds() > 50: string = " a minute ago"
     else: string = str(round(delta.total_seconds())) + " seconds ago"
     return string
+
+@app.template_filter()
+def md(text): return markdown(escape(text))
 
 def create_tables():
     db.database.create_tables([User, Moodel, Tag, MoodelTags], safe=True)
